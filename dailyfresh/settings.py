@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tinymce', # 富文本编辑器
-    'user', # 用户模块
+    'apps.user', # 用户模块
     'goods', # 商品模块
     'cart', # 购物车模块
     'order', # 订单模块
@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'dailyfresh.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dailyfresh_bj18',
+        'NAME': 'dailyfresh',
         'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '172.16.179.130',
+        'PASSWORD': '999999',
+        'HOST': '127.0.0.1',
         'PORT':3306,
     }
 }
@@ -128,18 +128,18 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
 # 发送邮件的邮箱
-EMAIL_HOST_USER = 'smartli_it@163.com'
+EMAIL_HOST_USER = 'ttkltll@163.com'
 # 在邮箱中设置的客户端授权密码
-EMAIL_HOST_PASSWORD = 'smartli123'
+EMAIL_HOST_PASSWORD = 'xg963979mm'
 # 收件人看到的发件人
-EMAIL_FROM = '天天生鲜<smartli_it@163.com>'
+EMAIL_FROM = '天天生鲜<ttkltll@163.com>'
 
 
 # Django的缓存配置
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://172.16.179.130:6379/9",
+        "LOCATION": "redis://127.0.0.1:6379/9",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }

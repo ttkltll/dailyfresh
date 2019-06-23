@@ -1,5 +1,8 @@
+
 from django.conf.urls import url
-from user.views import RegisterView, ActiveView, LoginView
+from apps.user.views import RegisterView, ActiveView, LoginView
+
+from apps.user.views import user_infoView
 
 urlpatterns = [
     # url(r'^register$', views.register, name='register'), # 注册
@@ -8,4 +11,5 @@ urlpatterns = [
     url(r'^register$', RegisterView.as_view(), name='register'), # 注册
     url(r'^active/(?P<token>.*)$', ActiveView.as_view(), name='active'), # 用户激活
     url(r'^login$', LoginView.as_view(), name='login'), # 登录
+    url(r'^$', user_infoView.as_view(), name='user_info'), # 登录
 ]

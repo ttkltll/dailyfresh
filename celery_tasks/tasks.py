@@ -5,13 +5,13 @@ from celery import Celery
 import time
 
 # 在任务处理者一端加这几句
-# import os
-# import django
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dailyfresh.settings")
-# django.setup()
+import os
+import django
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dailyfresh.settings")
+django.setup()
 
 # 创建一个Celery类的实例对象
-app = Celery('celery_tasks.tasks', broker='redis://172.16.179.130:6379/8')
+app = Celery('celery_tasks.tasks', broker='redis://127.0.0.1:6379/8')
 
 
 # 定义任务函数

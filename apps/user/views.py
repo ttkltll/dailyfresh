@@ -1,3 +1,4 @@
+
 from django.shortcuts import render,redirect
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
@@ -6,7 +7,7 @@ from django.views.generic import View
 from django.http import HttpResponse
 from django.conf import settings
 
-from user.models import User
+from apps.user.models import User
 from celery_tasks.tasks import send_register_active_email
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous import SignatureExpired
@@ -15,7 +16,7 @@ import time
 # Create your views here.
 
 
-# /user/register
+# /user/register;
 # GET POST PUT DELETE OPTION
 def register(request):
     '''注册'''
@@ -244,6 +245,12 @@ class LoginView(View):
 
 
 
+
+
+class user_infoView(View):
+    def get(self, request):
+
+        return render(request, 'user_center_info.html')
 
 
 
