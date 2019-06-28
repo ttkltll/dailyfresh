@@ -40,7 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tinymce', # 富文本编辑器
-    'apps.user', # 用户模块
+    'haystack', # 注册全文检索框架
+    'user', # 用户模块
     'goods', # 商品模块
     'cart', # 购物车模块
     'order', # 订单模块
@@ -149,3 +150,30 @@ CACHES = {
 # 配置session存储
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
+
+# 配置登录url地址
+LOGIN_URL='/user/login' # /accounts/login?next=/user
+
+# 设置Django的文件存储类
+DEFAULT_FILE_STORAGE='utils.fdfs.storage.FDFSStorage'
+
+# 设置fdfs使用的client.conf文件路径
+FDFS_CLIENT_CONF='./utils/fdfs/client.conf'
+
+# 设置fdfs存储服务器上nginx的IP和端口号
+FDFS_URL='http://127.0.0.1:8888/'
+
+# 全文检索框架的配置
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    }
+}
+
+
+# 当添加、修改、删除数据时，自动生成索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+# 指定搜索结果每页显示的条数
+HAYSTACK_SEARCH_RESULTS_PER_PAGE=1

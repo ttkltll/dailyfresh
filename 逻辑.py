@@ -161,3 +161,192 @@ class user_infoView(View):
     def post(self, request):
 
 ？问题：浏览过的商品，如果展示，它是一个集合
+
+?笔记：用户中心跟新经资讯不同，新经资讯你不登录你都进入不了用户中心。而这个项目不同，最上排号右边有个"个人中心"按钮。
+
+    ### 登录后欢迎信息：
+    if data.user:
+        欢迎你：data.user.username:退出：链接：<a her = "url(user/logout)">退出</a>
+    else:
+        <a her = "url(user/login)"><a her = "user/register"
+        <a href = "{% url'user:login'%}">
+
+        ? 对比：在新经资讯项目中,后端是通过ajax实现的。
+
+### 今天把后端的逻辑写一遍
+    点登录按钮，显示登录的页面
+        用get
+    再点登录的提交，显示首页
+    用Post
+先做出登录用的页面出来
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'login.html',)
+
+    def post(self, request):
+        # 先做最简单的提交
+         # 拿到数据
+        username = request.POST.get('username')
+        password = request.POST.get('pwd')
+        remember = request.POST.get('remember')
+
+
+        # 核对数据
+        user = authenticate(username=username, password=password)
+        # 要判断user是否是激活的，如果是，那么
+        # 要往session中写东西：
+        if user:
+            if user.is_active == True:
+                login(request, user)
+
+        # 如果不是激活，就不管
+        # 判断remember是否是On,如果是，那么要返回cookies,
+               if remember is on:
+                    response = response.set_cookie('username', username)
+                    # ？问题：如何把cookie和模板一起传过去呢？
+                    # ？纠错：没有考虑到如果密码和用户不正确，那么返回"密码不正确，也没有考虑如果没有激活，返回"没有激活",也没有考虑如果remember不存在：那么：也没有考虑如果地址中有？=的情况。
+                    # ?笔记：render,redirect,都是一个response对象，可以直接return,也可以赋值给一个变量后再return,比如：
+                else:
+                    response.delete_cookie('username')
+                # 返回到首页，或者自定义的首页：
+                return redirect(reverse(goods:index))
+                # 拿到参数，返回到参数的页面：比如/user/
+                next = request.GET.get("next")
+                return redirect(url"next")
+
+            else:
+                return render(request, 'login.html', {'errmsg':"没有激活"})
+
+        else:
+            # 用户密码都不正确：
+            # 输出，返回登录模板加一个errmsg:
+            return render(request, 'login.html', {'errmsg':"密码输入错误"})
+        # 返回数据
+        return render(request, 'index.html',)
+
+
+### 现在写用户地址那一块：
+先做前端：
+<div class="right_content clearfix">
+				<h3 class="common_title2">收货地址</h3>
+				<div class="site_con">
+					<dl>
+						<dt>当前地址：</dt>
+						<dd>北京市 海淀区 东北旺西路8号中关村软件园 （李思 收） 182****7528</dd>
+					</dl>
+				</div>
+				<h3 class="common_title2">编辑地址</h3>
+				<div class="site_con">
+					<form>
+						<div class="form_group">
+							<label>收件人：</label>
+							<input type="text" name="receiver">
+						</div>
+						<div class="form_group form_group2">
+							<label>详细地址：</label>
+							<textarea class="site_area" name='address'></textarea>
+						</div>
+						<div class="form_group">
+							<label>邮编：</label>
+							<input type="text" name="no">
+						</div>
+						<div class="form_group">
+							<label>手机：</label>
+							<input type="text" name="phone_no">
+						</div>
+
+						<input type="submit" name="" value="提交" class="info_submit">
+					</form>
+				</div>
+		</div>
+	</div>
+
+# ?问题：为什么个人中心模块要从地址写起而不从个人信息写起呢？
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'login.html',)
+
+    def post(self, request):
+        # 先做最简单的提交
+        # 拿到数据
+        username = request.POST.get('username')
+        password = request.POST.get('pwd')
+        remember = request.POST.get('remember')
+
+
+        # 核对数据
+        user = authenticate(username=username, password=password)
+        # 要判断user是否是激活的，如果是，那么
+        # 要往session中写东西：
+        if user:
+            if user.is_active == True:
+                login(request, user)
+
+                # 如果不是激活，就不管
+                # 判断remember是否是On,如果是，那么要返回cookies,
+            if remember is on:
+                response = response.set_cookie('username', username)
+                # ？问题：如何把cookie和模板一起传过去呢？
+                # ？纠错：没有考虑到如果密码和用户不正确，那么返回"密码不正确，也没有考虑如果没有激活，返回"没有激活",也没有考虑如果remember不存在：那么：也没有考虑如果地址中有？=的情况。
+                # ?笔记：render,redirect,都是一个response对象，可以直接return,也可以赋值给一个变量后再return,比如：
+            else:
+                response.delete_cookie('username')
+                # 返回到首页，或者自定义的首页：
+            return redirect(reverse(goods:index))
+            # 拿到参数，返回到参数的页面：比如/user/
+            next = request.GET.get("next")
+            return redirect(url"next")
+
+            else:
+            return render(request, 'login.html', {'errmsg':"没有激活"})
+
+    else:
+    # 用户密码都不正确：
+    # 输出，返回登录模板加一个errmsg:
+    return render(request, 'login.html', {'errmsg':"密码输入错误"})
+# 返回数据
+return render(request, 'index.html',)
+
+
+
+
+class AddressView():
+    def get(self,request):
+        context = {
+
+        }
+        return render(request, 'user_center_site.html', context)
+    def post(self,request):
+        # 要在数据库中增加地址
+        # 得到数据
+        receiver = request.POST.get('receiver')
+        address = request.POST.get('address')
+        no = request.POST.get('no')
+        phone_no = request.POST.get('phone_no')
+
+        # 有效性
+        if not all[receiver, address, no, phone_no]
+
+        # 写入数据库
+        address = Address()
+        address.
+        # 返回页面：
+        return redirect('user/address')
+
+# 最前面显示默认地址，后面不过是往数据库里加地址，
+就像创建用户对象一样，django里面也有一个封闭的函数可供调用。
+就是要判断创建的用户user.is_defalt是设置成True还是什么了。如果数据库里有地址是defalt,那么设成false,如果没有，那么设
+class Logout_infoView(View):
+    def get(self, request):
+
+        #退出到登录页面前要进行处理：
+        # 删除session数据
+        logout(request, user)
+        #返回登录页面：
+        return render(request, 'login.html')
+
+
+
+
+###
