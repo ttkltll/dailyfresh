@@ -32,7 +32,7 @@ Pillow==4.3.0
 prompt-toolkit==1.0.15
 ptyprocess==0.5.2
 py3Fdfs==2.1.0
-pycryptodome==3.4.7
+pycryptodome==3.6.6
 pycryptodomex==3.5.1
 Pygments==2.2.0
 PyMySQL==0.7.11
