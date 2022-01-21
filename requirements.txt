@@ -16,7 +16,7 @@ django-redis-sessions==0.5.6
 django-tinymce==2.7.0
 docopt==0.6.2
 idna==2.6
-ipython==6.3.1
+ipython==7.16.3
 ipython-genutils==0.2.0
 itsdangerous==0.24
 jedi==0.12.0
